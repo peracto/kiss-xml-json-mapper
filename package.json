@@ -1,0 +1,14 @@
+{
+  "name": "kiss-xml-json-mapper",
+  "version": "0.1.0",
+  "description": "Maps XML documents into JSON ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peracto <garyranson@hotmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "sax": "^1.2.4"
+  }
+}
