@@ -1,136 +1,46 @@
 const sax = require('sax')
-
-const emptyGetter = new Map()
-
-function compileMap(obj) {
-    return new Map(Object.entries(obj).map(kvp => {
-        const [tagName, propertyName, isArray] = parseName(kvp[0])
-        return [
-            tagName,
-            Object.freeze(createProperty(kvp[1], propertyName, isArray))
-        ]
-    }))
-}
-
-function createProperty(propertyType, propertyName, isArray) {
-    if (typeof (propertyType) === 'object') {
-        return {
-            terminal: false,
-            name: propertyName,
-            create: isArray
-                ? createArray
-                : createObject,
-            properties: compileMap(propertyType, isArray),
-            setValue: isArray
-                ? xxxxArray(propertyName)
-                : xxxxObject(propertyName)
-        }
-    } else {
-        return {
-            terminal: true,
-            name: propertyName,
-            setValue: isArray
-                ? setterArrayValue(propertyName, getHandler(propertyType))
-                : setterObjectValue(propertyName, getHandler(propertyType)),
-            properties: emptyGetter
-        }
-    }
-}
-
-function xxxxObject(name) {
-    return (store, value) => {
-        store[name] = value
-    }
-}
-function xxxxArray() {
-    return (store, value) => {
-        store.push(value)
-    }
-}
-
-function setterObjectValue(name, fn) {
-    return (store, value) => {
-        store[name] = fn(value)
-    }
-}
-function setterArrayValue(name, fn) {
-    return (store, value) => {
-        const a = store[name] ||  (store[name] = [])
-        a.push(fn(value))
-    }
-}
-
-function parseName(name) {
-    const s = name.split('|')
-    const isArray = s[0].endsWith('*')
-    const tagName = isArray ? s[0].substr(0, s[0].length - 1) : s[0]
-    return [tagName, s.length > 1 ? s[1] : tagName, isArray]
-}
-
-function createArray() {
-    return []
-}
-function createObject() {
-    return {}
-}
-
-
-const dummyState = Object.freeze({
-    terminal: false,
-    properties: emptyGetter,
-    create: noop,
-    setValue: noop,
-    name: '$$DUMMY$$'
-})
-
-const handlerFunctions = {
-    "integer" : (value) => parseInt(value),
-    "float" : (value) => parseFloat(value),
-    "string" : (value) => value,
-    "text" : (value) => value,
-    "datetime": (value) => new Date(value)
-}
-
-function getHandler(name) {
-    return handlerFunctions[name] || handlerFunctions.string
-}
-
-function noop() {
-}
+const compileMap = require('./compile')
 
 module.exports = function createReader(root) {
-
     const parser = sax.parser(true, {
         trim: true
     })
 
-    const compiledRoot = {
-        properties: compileMap(root, 0),
-        name: '$$ROOT$$',
-        setValue(_, value) {
-            store = value
+    parser.onopentag = function startElement(tag) {
+        propertyStack.push(property)
+        property = property.properties(tag.name)
+        switch (property.type) {
+            case 0:
+                textBuilder = null
+                return
+            case 1:
+                storeStack.push(store)
+                store = {}
+                return
+            case 2:
+                storeStack.push(store)
+                store = store[tag.name]||[]
+                return
+            default:
+                return
         }
     }
 
-    parser.onopentag = function startElement(tag) {
-        storeStack.push(store)
-        propertyStack.push(property)
-        property = property.properties.get(tag.name) || dummyState
-        textBuilder = null
-        if (property.terminal) return
-        store = property.create()
-    }
-
     parser.onclosetag = function endElement() {
-        if (property.terminal) {
-            property.setValue(store, textBuilder)
-            property = propertyStack.pop()
-            store = storeStack.pop()
-        } else {
-            const value = store
-            property = propertyStack.pop()
-            store = storeStack.pop()
-            property.setValue(store, value)
+        switch(property.type) {
+            case 0: // Terminal
+                property.setValue(store, textBuilder)
+                property = propertyStack.pop()
+                return
+            case 1: // Object
+            case 2: // Array
+                const n1 = property.name
+                property = propertyStack.pop()
+                store = property.setValue(storeStack.pop(), n1, store)
+                return
+            default: // Unknown
+                property = propertyStack.pop()
+                return
         }
     }
 
@@ -142,6 +52,7 @@ module.exports = function createReader(root) {
         console.error(error)
     }
 
+    const compiledRoot = compileMap(root)
     let property = null;
     let store = {}
     let propertyStack = [];
@@ -150,8 +61,8 @@ module.exports = function createReader(root) {
 
     return (xml) => {
         store = {}
-        propertyStack = [];
-        storeStack = [];
+        propertyStack = []
+        storeStack = []
         property = compiledRoot
         parser.write(xml).close()
         return store

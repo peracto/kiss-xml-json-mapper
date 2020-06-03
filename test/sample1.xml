@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Header>
+        <ebl:RequesterCredentials soapenv:mustUnderstand="0" xmlns:ns="urn:ebay:apis:eBLBaseComponents" xmlns:ebl="urn:ebay:apis:eBLBaseComponents">
+            <ebl:NotificationSignature xmlns:ebl="urn:ebay:apis:eBLBaseComponents">2MMvMmzJ1WW3UJkmesy5/g==</ebl:NotificationSignature>
+        </ebl:RequesterCredentials>
+    </soapenv:Header>
+    <soapenv:Body>
+        <GetItemResponse xmlns="urn:ebay:apis:eBLBaseComponents">
+            <Timestamp>2020-05-16T14:33:44.328Z</Timestamp>
+            <Ack>Success</Ack>
+            <CorrelationID>755553470</CorrelationID>
+            <Version>1143</Version>
+            <Build>E1143_CORE_APIMSG_19169581_R1</Build>
+            <NotificationEventName>BidReceived</NotificationEventName>
+            <RecipientUserID>testuser_granson</RecipientUserID>
+            <EIASToken>nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4aiC5OHqASdj6x9nY+seQ==</EIASToken>
+            <Item>
+                <AutoPay>false</AutoPay>
+                <BuyerProtection>ItemIneligible</BuyerProtection>
+                <BuyItNowPrice currencyID="USD">18.0</BuyItNowPrice>
+                <Country>US</Country>
+                <Currency>USD</Currency>
+                <Description>
+                    This is the fourth book in the Harry Potter series. In excellent condition!
+                </Description>
+            </Item>
+        </GetItemResponse>
+    </soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,21 @@
+{
+  "soapenv:Envelope|envelope": {
+    "soapenv:Header|header": {
+      "ebl:RequesterCredentials|credentials": {
+        "ebl:NotificationSignature|signature": "string"
+      }
+    },
+    "soapenv:Body|body": {
+      "GetItemResponse|content": {
+        "Timestamp|timestamp": "datetime",
+        "Ack|acknowledge": "string",
+        "CorrelationID|correlationId": "integer",
+        "Item|item": {
+          "BuyerProtection|buyerProtection": "string",
+          "Description|description": "string"
+        }
+      }
+    }
+  }
+}
+
