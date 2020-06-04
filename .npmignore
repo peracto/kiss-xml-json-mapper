@@ -7,3 +7,5 @@
 .github
 .travis.yml
 .idea
+.git
+test
