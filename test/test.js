@@ -17,7 +17,7 @@ function testSample(xmlfile,jsonfile,resultfile) {
 }
 
 
-describe('Math', function() {
+describe('Testing', function() {
     it('test1', () => testSample('sample1.xml', 'test.schema1.json', 'result1.json'))
     it('test2', () => testSample('sample2.xml', 'test.schema2.json', 'result2.json'))
     it('test3', () => testSample('sample3.xml', 'test.schema3.json', 'result3.json'))

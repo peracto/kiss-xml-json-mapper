@@ -7,6 +7,7 @@
     },
     "soapenv:Body|body": {
       "GetItemResponse|content": {
+        "!_kind": "GetItemResponse",
         "Timestamp|timestamp": "datetime",
         "Ack|acknowledge": "string",
         "CorrelationID|correlationId": "integer",

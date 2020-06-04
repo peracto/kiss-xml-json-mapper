@@ -93,6 +93,40 @@ Property names are pipe delimited ...
 
 Where the XML attribute name is suffixed with an asterisk, then it identifys that this a a reurring field - and will result in a array of values. This notation will work at the object level and the propery level.
 
+####Static Properties
+
+To inject a static value into a resolved object - prefix the property name is an exclamation point (!).
+
+```
+      "GetItemResponse|content": {
+        "!_kind": "GetItemResponse", // EXAMPLE HERE
+        "Timestamp|timestamp": "datetime",
+        "Ack|acknowledge": "string",
+        "CorrelationID|correlationId": "integer",
+        "Item|item": {
+          "BuyerProtection|buyerProtection": "string",
+          "Description|description": "string"
+        }
+      }
+```
+This will return an object that contains the literal value of the property ...
+
+```json5
+{
+    "content": {
+      "_kind": "GetItemResponse", // 
+      "timestamp": "2020-05-16T14:33:44.328Z",
+      "acknowledge": "Success",
+      "correlationId": 755553470,
+      "item": {
+        "buyerProtection": "ItemIneligible",
+        "description": "This is the fourth book in the Harry Potter series. In excellent condition!"
+      }
+    }
+}
+```
+
+
 ####Property Values 
 
 A property value is either an object that describes an embedded value, or it's a terminal value datatype ...

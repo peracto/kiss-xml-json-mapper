@@ -15,11 +15,11 @@ module.exports = function createReader(root) {
                 return
             case 1:
                 storeStack.push(store)
-                store = {}
+                store = property.create()
                 return
             case 2:
                 storeStack.push(store)
-                store = store[tag.name]||[]
+                store = store[tag.name]||property.create()
                 return
             default:
                 return
