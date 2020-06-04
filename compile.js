@@ -1,7 +1,5 @@
 const createHandler = require('./handlers')
 
-const emptyGetter = new Map()
-
 function compileMap(obj, isBaseArray) {
 
     const map = new Map()
@@ -88,7 +86,7 @@ function createTerminalProperty(propertyType, propertyName, setterType) {
 }
 
 function noopProperties() {
-    return emptyGetter
+    return dummyState
 }
 
 function getProperties(tagName) {
@@ -98,7 +96,7 @@ function getProperties(tagName) {
 const dummyState = Object.freeze({
     type: -1,
     name: '$$DUMMY$$',
-    properties: emptyGetter,
+    properties: noopProperties,
     setValue: null
 })
 

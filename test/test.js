@@ -22,4 +22,5 @@ describe('Testing', function() {
     it('test2', () => testSample('sample2.xml', 'test.schema2.json', 'result2.json'))
     it('test3', () => testSample('sample3.xml', 'test.schema3.json', 'result3.json'))
     it('test4', () => testSample('sample4.xml', 'test.schema4.json', 'result4.json'))
+    it('test5', () => testSample('sample5.xml', 'test.schema5.json', 'result5.json'))
 });
