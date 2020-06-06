@@ -1,0 +1,23 @@
+{
+  "body": {
+    "content": {
+      "_kind": "GetItemTransactionsResponse",
+      "acknowledge": "Success",
+      "correlationId": 755864110,
+      "eaiToken": "nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4aiC5OHqASdj6x9nY+seQ==",
+      "item": {
+        "autoPay": false,
+        "buyItNowPrice": 12.34,
+        "currency": "USD"
+      },
+      "noficationEventName": "AuctionCheckoutComplete",
+      "recipientUserId": "testuser_granson",
+      "timestamp": "2020-05-28T18:08:52.705Z"
+    }
+  },
+  "header": {
+    "credentials": {
+      "signature": "OZTMihYkGbdKBCeksLT6DQ=="
+    }
+  }
+}

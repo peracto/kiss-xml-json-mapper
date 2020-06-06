@@ -1,6 +1,6 @@
 {
   "GetUserResponse|getUserResponse": {
-    "Ack:ack": "string",
+    "Ack|ack": "string",
     "User|user": {
       "EIASToken|token" : "string",
       "UserID|userid" : "string",

@@ -1,12 +1,25 @@
 const handlerFunctions = {
     "integer" : (value) => parseInt(value),
     "float" : (value) => parseFloat(value),
+    "decimal" : (value) => parseFloat(value),
+    "boolean" : parseBoolean,
     "string" : (value) => value,
     "text" : (value) => value,
     "datetime": (value) => new Date(value)
 }
 
 const handlers = new Map()
+
+function parseBoolean(s) {
+    if(typeof s!=='string')
+        return !!s
+
+    switch(s.toLowerCase()) {
+        case "true" : return true
+        case "false" : return false
+    }
+    return undefined
+}
 
 const setters = [
     function terminalObjectSetter(fn) {
