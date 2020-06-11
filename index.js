@@ -1,7 +1,7 @@
 const sax = require('sax')
 const compileMap = require('./compile')
 
-module.exports = function createReader(root) {
+module.exports = function createReader(root, map) {
     const parser = sax.parser(true, {
         trim: true
     })
@@ -65,6 +65,6 @@ module.exports = function createReader(root) {
         storeStack = []
         property = compiledRoot
         parser.write(xml).close()
-        return store
+        return map?map(store):store
     }
 }

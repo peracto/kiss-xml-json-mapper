@@ -1,6 +1,6 @@
 {
   "name": "kiss-xml-json-mapper",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "Maps XML documents into JSON ",
   "main": "index.js",
   "scripts": {

@@ -1,0 +1,26 @@
+{
+  "soapenv:Envelope|envelope": {
+    "soapenv:Header|header": {
+      "ebl:RequesterCredentials|credentials": {
+        "ebl:NotificationSignature|signature": "string"
+      }
+    },
+    "soapenv:Body|body": {
+      "GetItemTransactionsResponse|content": {
+        "!_kind": "GetItemTransactionsResponse",
+        "Timestamp|timestamp": "datetime",
+        "Ack|acknowledge": "string",
+        "CorrelationID|correlationId": "integer",
+        "NotificationEventName|noficationEventName": "string",
+        "RecipientUserID|recipientUserId": "string",
+        "EIASToken|eaiToken": "string",
+        "Item|item": {
+          "AutoPay|autoPay": "boolean",
+          "BuyItNowPrice|buyItNowPrice": "decimal",
+          "Currency|currency": "string"
+        }
+      }
+    }
+  }
+}
+
